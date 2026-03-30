@@ -3,62 +3,133 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="//db.onlinewebfonts.com/c/f4d1593471d222ddebd973210265762a?family=Pokemon"
-      rel="stylesheet"
-      type="text/css"
+    <title>Pokedex Explorer | Vanilla JavaScript Showcase</title>
+    <meta
+      name="description"
+      content="Responsive Pokedex built with HTML, CSS and vanilla JavaScript. Includes search, filters, sorting and Pokemon detail views."
     />
-    <!-- CSS only -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
     />
-    <!-- My CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
-      <img
-        class="logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/800px-International_Pok%C3%A9mon_logo.svg.png"
-        alt="logo"
-      />
-      <div class="nav-search">
-        <input
-          class="nav-element form-control mr-sm-2 nav-input-search"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-          id="input-search"
-        />
-        <button class="nav-but" id="search">Search</button>
-      </div>
-    </nav>
-    <main class="container" id="main">
-      <div class="row containers" id="card-container">
-        <!-- Aquí van las tarjetas -->
-      </div>
-    </main>
-    <!-- JS, Popper.js, and jQuery -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-    <!-- my JS -->
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <img
+            class="pokemon-brand-logo"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg"
+            alt="Pokemon logo"
+          />
+          <p class="eyebrow">Front-End Portfolio Piece</p>
+          <h1>Pokedex Explorer</h1>
+          <p class="hero-text">
+            Responsive single-page experience built with semantic HTML, modern CSS
+            and vanilla JavaScript. Designed to show clean UI thinking, data
+            rendering and interaction design without frameworks.
+          </p>
+          <div class="brand-pills" aria-label="Pokemon brand colors">
+            <span class="brand-pill brand-pill-yellow">Electric yellow</span>
+            <span class="brand-pill brand-pill-blue">Pokeball blue</span>
+            <span class="brand-pill brand-pill-red">Battle red</span>
+          </div>
+          <div class="hero-actions">
+            <a class="primary-link" href="#explorer">Explore Pokemon</a>
+            <a class="secondary-link" href="https://github.com/RicardoSalas17/pokedex-DEVF-project" target="_blank" rel="noreferrer">View Repository</a>
+          </div>
+        </div>
+        <section class="hero-panel" aria-label="Project highlights">
+          <div>
+            <p class="panel-label">Highlights</p>
+            <ul class="feature-list">
+              <li>Live search by name or Pokedex number</li>
+              <li>Type filtering and sorting</li>
+              <li>Accessible detail dialog</li>
+              <li>Static deployment ready for GitHub Pages</li>
+            </ul>
+          </div>
+          <div class="stats-grid" id="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Pokemon Loaded</span>
+              <strong class="stat-value" id="total-count">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Visible Results</span>
+              <strong class="stat-value" id="visible-count">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Unique Types</span>
+              <strong class="stat-value" id="type-count">0</strong>
+            </article>
+          </div>
+        </section>
+      </header>
+
+      <main id="explorer" class="content">
+        <section class="controls-panel" aria-label="Pokemon explorer controls">
+          <div class="control-group search-group">
+            <label for="search-input">Search Pokemon</label>
+            <input
+              id="search-input"
+              name="search"
+              type="search"
+              placeholder="Try Pikachu or #25"
+              autocomplete="off"
+            />
+          </div>
+          <div class="control-group">
+            <label for="type-filter">Filter by type</label>
+            <select id="type-filter" name="type-filter">
+              <option value="all">All types</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="sort-select">Sort by</label>
+            <select id="sort-select" name="sort-select">
+              <option value="id-asc">Pokedex number: ascending</option>
+              <option value="id-desc">Pokedex number: descending</option>
+              <option value="name-asc">Name: A to Z</option>
+              <option value="name-desc">Name: Z to A</option>
+            </select>
+          </div>
+          <button class="ghost-button" id="reset-button" type="button">
+            Reset filters
+          </button>
+        </section>
+
+        <section class="results-meta" aria-live="polite">
+          <p id="results-summary">Loading Pokemon...</p>
+        </section>
+
+        <section>
+          <div class="pokemon-grid" id="pokemon-grid"></div>
+          <div class="empty-state hidden" id="empty-state">
+            <h2>No Pokemon found</h2>
+            <p>Adjust the search or filters to see matching results.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="dialog-backdrop hidden" id="dialog-backdrop" aria-hidden="true">
+      <section
+        class="pokemon-dialog"
+        id="pokemon-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dialog-title"
+      >
+        <button class="dialog-close" id="dialog-close" type="button" aria-label="Close detail view">
+          ×
+        </button>
+        <div class="dialog-content" id="dialog-content"></div>
+      </section>
+    </div>
+
     <script src="pokedex.js"></script>
     <script src="main.js"></script>
   </body>
