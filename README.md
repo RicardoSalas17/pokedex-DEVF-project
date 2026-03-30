@@ -1,5 +1,7 @@
 # Pokedex Explorer
 
+[View live site](https://ricardosalas17.github.io/pokedex-DEVF-project/)
+
 Responsive Pokedex built with semantic HTML, modern CSS and vanilla JavaScript.
 
 ## Why this project
@@ -30,4 +32,4 @@ The repository includes `.github/workflows/deploy-pages.yml`.
 
 After setting **Settings > Pages > Source** to **GitHub Actions**, every push to `master` will publish the project to:
 
-`https://ricardosalas17.github.io/pokedex-DEVF-project/`
+[https://ricardosalas17.github.io/pokedex-DEVF-project/](https://ricardosalas17.github.io/pokedex-DEVF-project/)
